@@ -1,4 +1,4 @@
-FROM tenstartups/openresty:latest
+FROM ficusio/openresty:latest
 
 # Install letsencrypt, code forked from https://github.com/xataz/dockerfiles/blob/master/letsencrypt/Dockerfile
 # replace letsencrypt-auto with acme-tiny
