@@ -3,8 +3,8 @@ FROM tenstartups/openresty:latest
 # Install letsencrypt, code forked from https://github.com/xataz/dockerfiles/blob/master/letsencrypt/Dockerfile
 # replace letsencrypt-auto with acme-tiny
 
-WORKDIR /letsencrypt
-ENV PATH /letsencrypt/venv/bin:$PATH
+WORKDIR /acme-tiny
+ENV PATH /acme-tiny/venv/bin:$PATH
 
 RUN export BUILD_DEPS="git \
                 build-base \
