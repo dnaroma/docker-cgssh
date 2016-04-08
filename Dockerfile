@@ -1,5 +1,3 @@
-FROM tenstartups/openresty:latest
-RUN rm -rf /etc/nginx/nginx.conf
-ADD /nginx/conf/nginx.conf /etc/nginx/nginx.conf
+FROM tenstartups/openresty:1.9-debian
 EXPOSE 80
 EXPOSE 443
