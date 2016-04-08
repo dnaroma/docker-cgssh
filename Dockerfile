@@ -33,7 +33,7 @@ RUN openssl genrsa 4096 > account.key \
     && openssl genrsa 4096 > domain.key
 # Create a certificate signing request (CSR) for your domains
 # for multiple domains (use this one if you want both www.yoursite.com and yoursite.com)
-RUN openssl req -new -sha256 -key domain.key -subj "/" -reqexts SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[SAN]\nsubjectAltName=DNS:ilovelive.tk,DNS:www.ilovelive.tk")) > domain.csr
+RUN openssl req -new -sha256 -key domain.key -subj "/CN=ilovelive.tk" > domain.csr
 # Get a signed certificate! (make sure nginx correctly configured)
 RUN mkdir -p /var/www/challenges/ \
     && python acme_tiny.py --account-key ./account.key --csr ./domain.csr --acme-dir /var/www/challenges/ > ./signed.crt
