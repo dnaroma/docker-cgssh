@@ -17,19 +17,20 @@ RUN export BUILD_DEPS="git \
                 python \
                 augeas-libs \
                 openssl \
-                ${BUILD_DEPS}
-RUN pip --no-cache-dir install virtualenv
-RUN git clone https://github.com/diafygi/acme-tiny.git /acme-tiny
-RUN virtualenv --no-site-packages -p python2 /acme-tiny/venv
-RUN /acme-tiny/venv/bin/pip install -r /acme-tiny/tests/requirements.txt
-RUN apk del ${BUILD_DEPS} \
+                ${BUILD_DEPS} \
+    && pip --no-cache-dir install virtualenv \
+    && git clone https://github.com/diafygi/acme-tiny.git /acme-tiny \
+    && virtualenv --no-site-packages -p python2 /acme-tiny/venv \
+    && /acme-tiny/venv/bin/pip install -r /acme-tiny/tests/requirements.txt \
+    && apk del ${BUILD_DEPS} \
     && rm -rf /var/cache/apk/*
 
 # Set certificate, see https://github.com/diafygi/acme-tiny
 
 WORKDIR /acme-tiny
 # Create a Let's Encrypt account private key
-RUN openssl genrsa 4096 > account.key
+RUN openssl genrsa 4096 > account.key \
+    && openssl genrsa 4096 > domain.key
 # Create a certificate signing request (CSR) for your domains
 # for multiple domains (use this one if you want both www.yoursite.com and yoursite.com)
 RUN openssl req -new -sha256 -key domain.key -subj "/" -reqexts SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[SAN]\nsubjectAltName=DNS:ilovelive.tk,DNS:www.ilovelive.tk")) > domain.csr
