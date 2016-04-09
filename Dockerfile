@@ -19,7 +19,8 @@ RUN export BUILD_DEPS="git \
                 openssl \
                 ${BUILD_DEPS} \
     && pip --no-cache-dir install virtualenv \
-    && git clone https://github.com/diafygi/acme-tiny.git /acme-tiny \
+    && git clone https://github.com/tangpei506/acme-tiny.git /acme-tiny \
+    && git checkout patch-1 \
     && virtualenv --no-site-packages -p python2 /acme-tiny/venv \
     && /acme-tiny/venv/bin/pip install -r /acme-tiny/tests/requirements.txt \
     && apk del ${BUILD_DEPS} \
